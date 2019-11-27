@@ -10,7 +10,6 @@ export default class EditUser extends Component {
     super(props);
 
     this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeDuration = this.onChangeDuration.bind(this);
     this.onChangeDate = this.onChangeDate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -18,7 +17,6 @@ export default class EditUser extends Component {
 
     this.state = {
       username: '',
-      description: '',
       duration: 0,
       date: new Date(),
       skills: OPTIONS.reduce(
@@ -48,7 +46,6 @@ export default class EditUser extends Component {
           console.log("test" +JSON.stringify(skillMap));
           this.setState({
           username: response.data.username,
-          description: response.data.description,
           duration: response.data.duration,
           date: new Date(response.data.date),
           skills: skillMap,
@@ -64,12 +61,6 @@ export default class EditUser extends Component {
   onChangeUsername(e) {
     this.setState({
       username: e.target.value
-    })
-  }
-
-  onChangeDescription(e) {
-    this.setState({
-      description: e.target.value
     })
   }
 
@@ -112,7 +103,6 @@ export default class EditUser extends Component {
 
     const user = {
       username: this.state.username,
-      description: this.state.description,
       duration: this.state.duration,
       date: this.state.date,
       skills: JSON.stringify(Object.keys(this.state.skills).filter(skill => this.state.skills[skill]))
@@ -129,10 +119,10 @@ export default class EditUser extends Component {
   render() {
     return (
     <div>
-      <h3>Edit User Log</h3>
+      <h3>Edit User</h3>
       <form onSubmit={this.onSubmit}>
         <div className="form-group"> 
-          <label>Name: </label>
+          <label><b>Name: </b></label>
           <input  type="text"
               required
               className="form-control"
@@ -140,26 +130,8 @@ export default class EditUser extends Component {
               onChange={this.onChangeUsername}
               />
         </div>
-        <div className="form-group"> 
-          <label>Description: </label>
-          <input  type="text"
-              required
-              className="form-control"
-              value={this.state.description}
-              onChange={this.onChangeDescription}
-              />
-        </div>
         <div className="form-group">
-          <label>Duration (in minutes): </label>
-          <input 
-              type="text" 
-              className="form-control"
-              value={this.state.duration}
-              onChange={this.onChangeDuration}
-              />
-        </div>
-        <div className="form-group">
-          <label>Date: </label>
+          <label><b>Date: </b></label>
           <div>
             <DatePicker
               selected={this.state.date}
@@ -167,10 +139,21 @@ export default class EditUser extends Component {
             />
           </div>
         </div>
-        {this.createCheckboxes()}
-
         <div className="form-group">
-          <input type="submit" value="Edit User Log" className="btn btn-primary" />
+          <label><b>Salary:</b> </label>
+          <input 
+              type="text" 
+              className="form-control"
+              value={this.state.duration}
+              onChange={this.onChangeDuration}
+              />
+        </div>
+        <div>
+          <label><b>Skills: </b></label>
+          {this.createCheckboxes()}
+        </div>
+        <div className="form-group">
+          <input type="submit" value="Update User Details" className="btn btn-primary" />
         </div>
       </form>
     </div>

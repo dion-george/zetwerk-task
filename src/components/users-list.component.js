@@ -6,7 +6,6 @@ import axios from 'axios';
 const User = props => (
   <tr>
     <td>{props.user.username}</td>
-    <td>{props.user.description}</td>
     <td>{props.user.duration}</td>
     <td>{props.user.date.substring(0,10)}</td>
     <td>{JSON.parse(props.user.skills).join(", ")}</td>
@@ -57,10 +56,9 @@ export default class UsersList extends Component {
         <table className="table">
           <thead className="thead-light">
             <tr>
-              <th>Username</th>
-              <th>Description</th>
-              <th>Duration</th>
-              <th>Date</th>              
+              <th>Name</th>
+              <th>Salary</th>
+              <th>Date of Birth</th>              
               <th>Skills</th>              
               <th>Actions</th>
             </tr>

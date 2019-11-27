@@ -10,7 +10,6 @@ const userSchema = new Schema({
     trim: true,
     minlength: 3
   },
-  description: { type: String, required: true },
   duration: { type: Number, required: true },
   date: { type: Date, required: true },
   skills: { type: String, required: true },

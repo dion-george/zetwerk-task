@@ -9,7 +9,6 @@ router.route('/').get((req, res) => {
 
 router.route('/add').post((req, res) => {
   const username = req.body.username;
-  const description = req.body.description;
   const duration = Number(req.body.duration);
   const date = Date.parse(req.body.date);
   const skills = req.body.skills;
@@ -18,7 +17,6 @@ router.route('/add').post((req, res) => {
 
 
   const newUser = new User({username,
-      description,
       duration,
       date,
       skills});
@@ -44,7 +42,6 @@ router.route('/update/:id').post((req, res) => {
   User.findById(req.params.id)
     .then(user => {
       user.username = req.body.username;
-      user.description = req.body.description;
       user.duration = Number(req.body.duration);
       user.date = Date.parse(req.body.date);
       user.skills = req.body.skills;
