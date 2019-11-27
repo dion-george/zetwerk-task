@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+  
 const User = props => (
   <tr>
     <td>{props.user.username}</td>
     <td>{props.user.description}</td>
     <td>{props.user.duration}</td>
     <td>{props.user.date.substring(0,10)}</td>
+    <td>{JSON.parse(props.user.skills).join(", ")}</td>
     <td>
       <Link to={"/edit/"+props.user._id}>edit</Link> | <a href="#" onClick={() => { props.deleteUser(props.user._id) }}>delete</a>
     </td>
@@ -58,7 +60,8 @@ export default class UsersList extends Component {
               <th>Username</th>
               <th>Description</th>
               <th>Duration</th>
-              <th>Date</th>
+              <th>Date</th>              
+              <th>Skills</th>              
               <th>Actions</th>
             </tr>
           </thead>

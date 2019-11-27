@@ -12,11 +12,16 @@ router.route('/add').post((req, res) => {
   const description = req.body.description;
   const duration = Number(req.body.duration);
   const date = Date.parse(req.body.date);
+  const skills = req.body.skills;
+
+  console.log("skills:" + skills);
+
 
   const newUser = new User({username,
       description,
       duration,
-      date,});
+      date,
+      skills});
 
   newUser.save()
     .then(() => res.json('User added!'))
@@ -42,6 +47,7 @@ router.route('/update/:id').post((req, res) => {
       user.description = req.body.description;
       user.duration = Number(req.body.duration);
       user.date = Date.parse(req.body.date);
+      user.skills = req.body.skills;
 
       user.save()
         .then(() => res.json('User updated!'))

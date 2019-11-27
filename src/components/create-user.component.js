@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
+import Checkbox from "./Checkbox";
 import "react-datepicker/dist/react-datepicker.css";
+
+const OPTIONS = ["One", "Two", "Three"];
+
 export default class CreateUsers extends Component {
   constructor(props) {
     super(props);
@@ -10,12 +14,20 @@ export default class CreateUsers extends Component {
     this.onChangeDuration = this.onChangeDuration.bind(this);
     this.onChangeDate = this.onChangeDate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onChangeSkills  = this.onChangeSkills.bind(this);
 
     this.state = {
       username: '',
       description: '',
       duration: 0,
-      date: new Date()
+      date: new Date(),
+      skills: OPTIONS.reduce(
+        (options, option) => ({
+          ...options,
+          [option]: false
+        }),
+        {}
+      )
     }
   } 
   onChangeUsername(e) {
@@ -40,14 +52,40 @@ export default class CreateUsers extends Component {
       date: date
     })
   }
+
+  onChangeSkills = changeEvent => {
+    const { name } = changeEvent.target;
+
+    this.setState(prevState => ({
+      skills: {
+        ...prevState.skills,
+        [name]: !prevState.skills[name]
+      }
+    }));
+  };
+
+  createCheckbox = option => (
+    <Checkbox
+      label={option}
+      isSelected={this.state.skills[option]}
+      onCheckboxChange={this.onChangeSkills}
+      key={option}
+    />
+  );
+
+  createCheckboxes = () => OPTIONS.map(this.createCheckbox);
+
   onSubmit(e) {
     e.preventDefault();
+
+
 
     const user = {
       username: this.state.username,
       description: this.state.description,
       duration: this.state.duration,
-      date: this.state.date
+      date: this.state.date,
+      skills: JSON.stringify(Object.keys(this.state.skills).filter(skill => this.state.skills[skill]))
     }
 
     console.log(user);
@@ -58,7 +96,14 @@ export default class CreateUsers extends Component {
       username: '',
       description: '',
       duration: 0,
-      date: new Date()
+      date: new Date(),
+      skills: OPTIONS.reduce(
+        (options, option) => ({
+          ...options,
+          [option]: false
+        }),
+        {}
+      )
     })
 
   }
@@ -68,7 +113,7 @@ export default class CreateUsers extends Component {
         <h3>Create New User</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group"> 
-            <label>Username: </label>
+            <label>name: </label>
             <input  type="text"
                 required
                 className="form-control"
@@ -103,6 +148,7 @@ export default class CreateUsers extends Component {
               />
             </div>
           </div>
+          {this.createCheckboxes()}
           <div className="form-group">
             <input type="submit" value="Create User" className="btn btn-primary" />
           </div>

@@ -13,6 +13,7 @@ const userSchema = new Schema({
   description: { type: String, required: true },
   duration: { type: Number, required: true },
   date: { type: Date, required: true },
+  skills: { type: String, required: true },
 }, {
   timestamps: true,
 });

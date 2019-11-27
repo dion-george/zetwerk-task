@@ -98,7 +98,7 @@ export default class EditUser extends Component {
       <h3>Edit User Log</h3>
       <form onSubmit={this.onSubmit}>
         <div className="form-group"> 
-          <label>Username: </label>
+          <label>Name: </label>
           <input  type="text"
               required
               className="form-control"
