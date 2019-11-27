@@ -4,8 +4,7 @@ import DatePicker from 'react-datepicker';
 import Checkbox from "./Checkbox";
 import "react-datepicker/dist/react-datepicker.css";
 
-const OPTIONS = ["One", "Two", "Three"];
-
+const OPTIONS = ["Java", "C++", "Python", "Ruby", "Rust", "C", "Objective C", "Swift", "Go", "Kotlin"];
 export default class CreateUsers extends Component {
   constructor(props) {
     super(props);
@@ -77,9 +76,6 @@ export default class CreateUsers extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-
-
-
     const user = {
       username: this.state.username,
       description: this.state.description,
@@ -92,20 +88,7 @@ export default class CreateUsers extends Component {
 
     axios.post('http://localhost:5000/users/add', user)
     .then(res => console.log(res.data));
-    this.setState({
-      username: '',
-      description: '',
-      duration: 0,
-      date: new Date(),
-      skills: OPTIONS.reduce(
-        (options, option) => ({
-          ...options,
-          [option]: false
-        }),
-        {}
-      )
-    })
-
+    window.location = '/';
   }
   render() {
     return (

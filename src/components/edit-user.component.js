@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
+import Checkbox from "./Checkbox";
 import "react-datepicker/dist/react-datepicker.css";
 
+const OPTIONS = ["Java", "C++", "Python", "Ruby", "Rust", "C", "Objective C", "Swift", "Go", "Kotlin"];
 export default class EditUser extends Component {
   constructor(props) {
     super(props);
@@ -12,41 +14,48 @@ export default class EditUser extends Component {
     this.onChangeDuration = this.onChangeDuration.bind(this);
     this.onChangeDate = this.onChangeDate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onChangeSkills  = this.onChangeSkills.bind(this);
 
     this.state = {
       username: '',
       description: '',
       duration: 0,
       date: new Date(),
-      skills: ''
+      skills: OPTIONS.reduce(
+        (options, option) => ({
+          ...options,
+          [option]: false
+        }),
+        {}
+      )
     }
   }
 
   componentDidMount() {
     axios.get('http://localhost:5000/users/'+this.props.match.params.id)
       .then(response => {
-        this.setState({
+          const skillMap = new Map();
+          OPTIONS.forEach(
+            (item, index) => {
+              skillMap[item] =  false;
+            }
+          );
+          JSON.parse(response.data.skills).forEach(
+            (item, index) => {
+              skillMap[item] =  true;
+            }
+          );
+          console.log("test" +JSON.stringify(skillMap));
+          this.setState({
           username: response.data.username,
           description: response.data.description,
           duration: response.data.duration,
           date: new Date(response.data.date),
-          skills: response.data.skills,
+          skills: skillMap,
           
         })   
       })
       .catch(function (error) {
-        console.log(error);
-      })
-
-    axios.get('http://localhost:5000/users/')
-      .then(response => {
-        if (response.data.length > 0) {
-          this.setState({
-            users: response.data.map(user => user.username),
-          })
-        }
-      })
-      .catch((error) => {
         console.log(error);
       })
 
@@ -76,6 +85,28 @@ export default class EditUser extends Component {
     })
   }
 
+  onChangeSkills = changeEvent => {
+    const { name } = changeEvent.target;
+
+    this.setState(prevState => ({
+      skills: {
+        ...prevState.skills,
+        [name]: !prevState.skills[name]
+      }
+    }));
+  };
+
+  createCheckbox = option => (
+    <Checkbox
+      label={option}
+      isSelected={this.state.skills[option]}
+      onCheckboxChange={this.onChangeSkills}
+      key={option}
+    />
+  );
+
+  createCheckboxes = () => OPTIONS.map(this.createCheckbox);
+
   onSubmit(e) {
     e.preventDefault();
 
@@ -84,7 +115,7 @@ export default class EditUser extends Component {
       description: this.state.description,
       duration: this.state.duration,
       date: this.state.date,
-      skills: this.state.skills
+      skills: JSON.stringify(Object.keys(this.state.skills).filter(skill => this.state.skills[skill]))
     }
 
     console.log(user);
@@ -136,6 +167,7 @@ export default class EditUser extends Component {
             />
           </div>
         </div>
+        {this.createCheckboxes()}
 
         <div className="form-group">
           <input type="submit" value="Edit User Log" className="btn btn-primary" />

@@ -49,6 +49,8 @@ router.route('/update/:id').post((req, res) => {
       user.date = Date.parse(req.body.date);
       user.skills = req.body.skills;
 
+      console.log("update skills:" + user.skills);
+
       user.save()
         .then(() => res.json('User updated!'))
         .catch(err => res.status(400).json('Error: ' + err));
