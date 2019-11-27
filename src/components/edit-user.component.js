@@ -18,7 +18,7 @@ export default class EditUser extends Component {
       description: '',
       duration: 0,
       date: new Date(),
-      users: []
+      skills: ''
     }
   }
 
@@ -29,7 +29,9 @@ export default class EditUser extends Component {
           username: response.data.username,
           description: response.data.description,
           duration: response.data.duration,
-          date: new Date(response.data.date)
+          date: new Date(response.data.date),
+          skills: response.data.skills,
+          
         })   
       })
       .catch(function (error) {
@@ -81,7 +83,8 @@ export default class EditUser extends Component {
       username: this.state.username,
       description: this.state.description,
       duration: this.state.duration,
-      date: this.state.date
+      date: this.state.date,
+      skills: this.state.skills
     }
 
     console.log(user);
