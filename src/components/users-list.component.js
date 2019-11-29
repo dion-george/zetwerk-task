@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import styles from './App.module.css';
 
   
 const User = props => (
@@ -53,7 +54,7 @@ export default class UsersList extends Component {
     return (
       <div>
         <h3>Logged Users</h3>
-        <table className="table">
+        <table className={styles.table}>
           <thead className="thead-light">
             <tr>
               <th>Name</th>
@@ -67,6 +68,13 @@ export default class UsersList extends Component {
             { this.userList() }
           </tbody>
         </table>
+        <div className={styles.pagination}>
+          <span>&laquo;</span>
+          <span className={styles.active}>1</span>
+          <span>2</span>
+          <span>3</span>
+          <span>4</span>
+        </div>
       </div>
     )
   }
