@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import styles from './App.module.css';
 
   
 const User = props => (
   <tr>
+    <td>{props.user._id}</td>
     <td>{props.user.username}</td>
     <td>{props.user.duration}</td>
     <td>{props.user.date.substring(0,10)}</td>
@@ -54,9 +54,10 @@ export default class UsersList extends Component {
     return (
       <div>
         <h3>Logged Users</h3>
-        <table className={styles.table}>
+        <table className="table">
           <thead className="thead-light">
             <tr>
+              <th>ID</th>
               <th>Name</th>
               <th>Salary</th>
               <th>Date of Birth</th>              
@@ -68,13 +69,6 @@ export default class UsersList extends Component {
             { this.userList() }
           </tbody>
         </table>
-        <div className={styles.pagination}>
-          <span>&laquo;</span>
-          <span className={styles.active}>1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>4</span>
-        </div>
       </div>
     )
   }

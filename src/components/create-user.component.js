@@ -13,13 +13,10 @@ export default class CreateUsers extends Component {
     this.onChangeDate = this.onChangeDate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onChangeSkills  = this.onChangeSkills.bind(this);
-//    this.onChangeImage = this.onChangeImage.bind(this);
-
 
     this.state = {
       username: '',
       duration: 0,
-      // imageURL: '',
       date: new Date(),
       skills: OPTIONS.reduce(
         (options, option) => ({
@@ -47,13 +44,7 @@ export default class CreateUsers extends Component {
       date: date
     })
   }
-  // onChangeImage(e) {
-  //   this.setState({
-  //     imageURL: e.target.value
-  //   })
-  //   console.log("hello" + this.state.imageURL)
-    
-  // }
+
   onChangeSkills = changeEvent => {
     const { name } = changeEvent.target;
     this.setState(prevState => ({
@@ -124,13 +115,6 @@ export default class CreateUsers extends Component {
                 onChange={this.onChangeDuration}
                 />
           </div>
-          {/* <div className="form-group">
-            <label><b>Profile Picture: </b></label>
-            <input 
-                required
-                value={this.state.imageURL} className="form-control" type="file" onChange = {this.onChangeImage}
-                />
-          </div> */}
           <div>
           <label><b>Skills: </b></label>
             {this.createCheckboxes()}

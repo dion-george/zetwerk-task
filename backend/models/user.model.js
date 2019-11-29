@@ -11,7 +11,6 @@ const userSchema = new Schema({
     trim: true,
     minlength: 3
   },
-//  img: { data: Buffer, contentType: String},
   duration: { type: Number, required: true },
   date: { type: Date, required: true },
   skills: { type: String, required: true },

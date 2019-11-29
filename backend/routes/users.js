@@ -11,16 +11,12 @@ router.route('/').get((req, res) => {
 
 router.route('/add').post((req, res) => {
   const username = req.body.username;
-//  const img = Buffer(req.body.img);
   const duration = Number(req.body.duration);
   const date = Date.parse(req.body.date);
   const skills = req.body.skills;
 
- // console.log("skills:" + skills);
-
 
   const newUser = new User({username,
- //     img,
       duration,
       date,
       skills
@@ -47,12 +43,9 @@ router.route('/update/:id').post((req, res) => {
   User.findById(req.params.id)
     .then(user => {
       user.username = req.body.username;
- //     user.img = Buffer(req.body.img);
       user.duration = Number(req.body.duration);
       user.date = Date.parse(req.body.date);
       user.skills = req.body.skills;
-
-    //  console.log("update skills:" + user.skills);
 
       user.save()
         .then(() => res.json('User updated!'))

@@ -6,7 +6,7 @@
 2. Employee list page
 3. Update Employee details
 4. Delete Employee information.
-
+5. Autogenerating employee id.
 
 #Features pending:
 
@@ -16,9 +16,8 @@
 4. Employee list pagination
 5. Employee list search
 6. Adding comments to the code.
-7. Autogenerating employee id.
-8. Adding test cases
-9. Improving UI
+7. Adding test cases
+8. Improving UI
 
 # Website Overview
 ![zetwerk-task](gif/zetwerk-video.gif)
